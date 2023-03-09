@@ -1,7 +1,7 @@
 DROP FUNCTION postgisftw.wcrp_barrier_count(text,text);
 
 CREATE FUNCTION postgisftw.wcrp_barrier_count(watershed_group_code TEXT, barrier_type TEXT default 'ALL')
---watershed_group: watershed group codes from db e.g. HORS, BULK, etc.
+--watershed_group: one of BULK, ELKR, HORS, LNIC
 --barrier_type: eg. DAM, RAIL, etc. or if you wish to choose all within watershed ... ALL
     RETURNS TABLE(
         watershed_group_cd TEXT,
