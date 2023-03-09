@@ -1,8 +1,13 @@
 # Report on connectivity status
 
+## Setup
+
+Ensure the `$DATABASE_URL` environment variable to point at the database of interest.
+
+
 ## Dump reports to file
 
-Run queries and dump to csv in `reports`:
+ Run queries and dump results to csv in `reports`:
 
     ./report.sh
 
@@ -14,15 +19,15 @@ To make connectivity queries to database via http, add functions in `sql/functio
 
 To add functions to the database:
 
-    psql -f sql/functions/wcrp_barrier_count.sql
-    psql -f sql/functions/wcrp_barrier_extent.sql
-    psql -f sql/functions/wcrp_barrier_severity.sql
-    psql -f sql/functions/wcrp_watershed_connectivity_status.sql
+    psql $DATABASE_URL -f sql/functions/wcrp_barrier_count.sql
+    psql $DATABASE_URL -f sql/functions/wcrp_barrier_extent.sql
+    psql $DATABASE_URL -f sql/functions/wcrp_barrier_severity.sql
+    psql $DATABASE_URL -f sql/functions/wcrp_watershed_connectivity_status.sql
 
 
 To ensure functions are working as expected:
 
-    psql -c "select postgisftw.wcrp_barrier_count('HORS')"
-    psql -c "select postgisftw.wcrp_barrier_extent('HORS')"
-    psql -c "select postgisftw.wcrp_barrier_severity('HORS')"
-    psql -c "select postgisftw.wcrp_watershed_connectivity_status('HORS')"
+    psql $DATABASE_URL -c "select postgisftw.wcrp_barrier_count('HORS')"
+    psql $DATABASE_URL -c "select postgisftw.wcrp_barrier_extent('HORS')"
+    psql $DATABASE_URL -c "select postgisftw.wcrp_barrier_severity('HORS')"
+    psql $DATABASE_URL -c "select postgisftw.wcrp_watershed_connectivity_status('HORS')"
