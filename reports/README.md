@@ -20,7 +20,7 @@ To add functions to the database:
     psql -f sql/functions/wcrp_watershed_connectivity_status.sql
 
 
-## Ensure things are working as expected
+To ensure things are working as expected
 
     psql -c "select postgisftw.wcrp_barrier_count('HORS')"
     psql -c "select postgisftw.wcrp_barrier_extent('HORS')"
