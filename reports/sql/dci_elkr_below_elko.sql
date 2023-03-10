@@ -1,4 +1,4 @@
--- calculate DCI for Elk River system below Elko dam - calculate both metrics, potadramous and diadromous/andradamos
+-- calculate DCI for Elk River system below Elko dam - calculate both metrics, potadramous and diadromous/anadromos
 
 
 -- get total stream lengths for DCI_a for habitat ONLY
@@ -12,12 +12,12 @@ WITH columbia_dams AS
 lengths_a AS
 (SELECT
     SUM(ST_Length(geom)) FILTER (
-        WHERE model_access_wct = 'ACCESSIBLE' OR 
+        WHERE (barriers_anthropogenic_dnstr is null and barriers_wct_dnstr = array[]::text[] OR
               barriers_anthropogenic_dnstr = (select barriers_anthropogenic_dnstr from columbia_dams)
-        ) as length_accessible,
+        )) as length_accessible,
     SUM(ST_Length(geom)) FILTER (
-        WHERE model_access_wct IN ('POTENTIALLY ACCESSIBLE', 'POTENTIALLY ACCESSIBLE - PSCIS BARRIER DOWNSTREAM') AND
-              barriers_anthropogenic_dnstr != (select barriers_anthropogenic_dnstr from columbia_dams) and barriers_anthropogenic_dnstr is not null -- just in case dnstr barriers are not loaded
+        WHERE barriers_anthropogenic_dnstr is not null and barriers_wct_dnstr = array[]::text[] AND
+              barriers_anthropogenic_dnstr != (select barriers_anthropogenic_dnstr from columbia_dams)
         ) as length_inaccessible
   FROM bcfishpass.streams
   WHERE (model_rearing_wct IS TRUE OR model_spawning_wct IS TRUE)
@@ -70,8 +70,8 @@ FROM lengths_a)
 
 -- report
 SELECT
-  length_accessible,
-  (length_accessible + length_inaccessible) as length_all_habitat,
+  round(length_accessible::numeric, 2) as length_accessible,
+  round((length_accessible + length_inaccessible)::numeric) as length_all_habitat,
   a.dci_a,
   p.dci_p
 FROM lengths_a,dci_a a, dci_p p

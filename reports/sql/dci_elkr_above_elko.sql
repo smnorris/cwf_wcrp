@@ -62,8 +62,8 @@ FROM lengths_a)
 
 -- report
 SELECT
-  length_accessible,
-  (length_accessible + length_inaccessible) as length_all_habitat,
+  round(length_accessible::numeric, 2) as length_accessible,
+  round((length_accessible + length_inaccessible)::numeric, 2) as length_all_habitat,
   a.dci_a,
   p.dci_p
 FROM lengths_a,dci_a a, dci_p p
