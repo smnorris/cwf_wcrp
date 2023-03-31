@@ -32,7 +32,7 @@ IF (v_feat = 'ALL')
       c.crossing_feature_type,
     count(*) as n_total
     FROM bcfishpass.crossings c
-    WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR')
+    WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR','BOWR','QUES','CARR')
 	AND c.watershed_group_code = v_wsg
     --AND crossing_feature_type = v_feat
     -- do not include flathead in ELKR
@@ -55,7 +55,7 @@ IF (v_feat = 'ALL')
       c.crossing_feature_type,
       count(*) as n_barrier
     FROM bcfishpass.crossings c
-    WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR')
+    WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR','BOWR','QUES','CARR')
     AND c.watershed_group_code = v_wsg
     --AND crossing_feature_type = v_feat
     AND c.wscode_ltree <@ '300.602565.854327.993941.902282.132363'::ltree IS FALSE
@@ -96,7 +96,7 @@ ELSE
       c.crossing_feature_type,
       count(*) as n_total
     FROM bcfishpass.crossings c
-    WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR')
+    WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR','BOWR','QUES','CARR')
     AND c.watershed_group_code = v_wsg
     AND c.crossing_feature_type = v_feat
     -- do not include flathead in ELKR
@@ -119,7 +119,7 @@ ELSE
       c.crossing_feature_type,
       count(*) as n_barrier
     FROM bcfishpass.crossings c
-    WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR')
+    WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR','BOWR','QUES','CARR')
     AND c.watershed_group_code = v_wsg
     AND c.crossing_feature_type = v_feat
     AND c.wscode_ltree <@ '300.602565.854327.993941.902282.132363'::ltree IS FALSE
