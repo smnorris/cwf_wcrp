@@ -1,7 +1,7 @@
 DROP FUNCTION postgisftw.wcrp_barrier_count(text,text);
 
 CREATE FUNCTION postgisftw.wcrp_barrier_count(watershed_group_code TEXT, barrier_type TEXT default 'ALL')
---watershed_group: one of BULK, ELKR, HORS, LNIC
+--watershed_group: one of BULK, ELKR, HORS, LNIC, QUES, BOWR, CARR
 --barrier_type: eg. DAM, RAIL, etc. or if you wish to choose all within watershed ... ALL
     RETURNS TABLE(
         watershed_group_cd TEXT,
@@ -33,7 +33,7 @@ IF (v_feat = 'ALL')
             c.barrier_status,
             count(*) as n_total
         FROM bcfishpass.crossings c
-        WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR')
+        WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR','BOWR','QUES','CARR')
         -- do not include flathead in ELKR
         AND c.wscode_ltree <@ '300.602565.854327.993941.902282.132363'::ltree IS FALSE
         AND (c.aggregated_crossings_id IS NOT NULL OR c.dam_id IS NOT NULL)
@@ -83,7 +83,7 @@ ELSE
             c.barrier_status,
             count(*) as n_total
         FROM bcfishpass.crossings c
-        WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR')
+        WHERE c.watershed_group_code IN ('BULK','LNIC','HORS','ELKR','BOWR','QUES','CARR')
         -- do not include flathead in ELKR
         AND c.wscode_ltree <@ '300.602565.854327.993941.902282.132363'::ltree IS FALSE
         AND (c.aggregated_crossings_id IS NOT NULL OR c.dam_id IS NOT NULL)
