@@ -40,7 +40,8 @@ IF (v_feat = 'ALL')
         ROUND(SUM(c.st_rearing_belowupstrbarriers_km)::numeric, 2) as st_rearing_blocked_km,
         ROUND(SUM(c.all_spawning_belowupstrbarriers_km)::numeric, 2) as all_spawning_blocked_km,
         ROUND(SUM(c.all_rearing_belowupstrbarriers_km)::numeric, 2) as all_rearing_blocked_km,
-        ROUND(SUM(c.all_spawningrearing_belowupstrbarriers_km)::numeric, 2) as all_spawningrearing_blocked_km
+        ROUND(SUM(c.all_spawningrearing_belowupstrbarriers_km)::numeric, 2) as all_spawningrearing_blocked_km,
+        ROUND(SUM(c.all_spawningrearing_km)::numeric, 2) as all_spawningrearing_km
       FROM bcfishpass.crossings c
       WHERE c.barrier_status IN ('POTENTIAL', 'BARRIER')
       AND c.aggregated_crossings_id != '1100002536' -- don't count the Elko Dam in ELKR
@@ -59,7 +60,7 @@ IF (v_feat = 'ALL')
             ROUND(n.all_spawningrearing_blocked_km*100 / nsum,2) as pct_test
             FROM barriers n
             INNER JOIN (
-            SELECT b.watershed_group_code, SUM(b.all_spawningrearing_blocked_km) as nsum
+            SELECT b.watershed_group_code, SUM(b.all_spawningrearing_km) as nsum
             FROM barriers b
             WHERE b.all_spawningrearing_blocked_km != 0
             group by b.watershed_group_code
@@ -95,7 +96,8 @@ ELSE
         ROUND(SUM(c.st_rearing_belowupstrbarriers_km)::numeric, 2) as st_rearing_blocked_km,
         ROUND(SUM(c.all_spawning_belowupstrbarriers_km)::numeric, 2) as all_spawning_blocked_km,
         ROUND(SUM(c.all_rearing_belowupstrbarriers_km)::numeric, 2) as all_rearing_blocked_km,
-        ROUND(SUM(c.all_spawningrearing_belowupstrbarriers_km)::numeric, 2) as all_spawningrearing_blocked_km
+        ROUND(SUM(c.all_spawningrearing_belowupstrbarriers_km)::numeric, 2) as all_spawningrearing_blocked_km,
+        ROUND(SUM(c.all_spawningrearing_km)::numeric, 2) as all_spawningrearing_km
       FROM bcfishpass.crossings c
       WHERE c.barrier_status IN ('POTENTIAL', 'BARRIER')
       AND c.aggregated_crossings_id != '1100002536' -- don't count the Elko Dam in ELKR
@@ -114,7 +116,7 @@ ELSE
             ROUND(n.all_spawningrearing_blocked_km*100 / nsum,2) as pct_test
             FROM barriers n
             INNER JOIN (
-            SELECT b.watershed_group_code, SUM(b.all_spawningrearing_blocked_km) as nsum
+            SELECT b.watershed_group_code, SUM(b.all_spawningrearing_km) as nsum
             FROM barriers b
             WHERE b.all_spawningrearing_blocked_km != 0
             group by b.watershed_group_code
