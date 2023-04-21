@@ -4,10 +4,14 @@ In support of Canadian Wildlife Federation (CWF) WCRP process, report and map co
 
 Watershed groups:
 
-- Bulkley River (BULK)
+
 - Elk River (ELKK)
+- Bowron (BOWR)
+- Bulkley River (BULK)
+- Cariboo River (CARR)
 - Horsefly River (HORS)
 - Lower Nicola (LNIC)
+- Quesnel River (QUES)
 
 
 See READMEs in subfolders for descriptions of contents.
