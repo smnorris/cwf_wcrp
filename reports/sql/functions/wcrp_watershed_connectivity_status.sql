@@ -178,8 +178,8 @@ IF (v_hab = 'REAR')
 SELECT
       a.watershed_group_code,
       a.rearing_pct_accessible,
-      a.all_habitat_km,
-      a.all_habitat_accessible_km
+      a.rearing_km,
+      a.rearing_accessible_km
   FROM access a;
 
 ELSIF (v_hab = 'SPAWN')
@@ -343,8 +343,8 @@ ELSIF (v_hab = 'SPAWN')
 SELECT
       a.watershed_group_code,
       a.spawning_pct_accessible,
-      a.all_habitat_km,
-      a.all_habitat_accessible_km
+      a.spawning_km,
+      a.spawning_accessible_km
   FROM access a;
 
 
