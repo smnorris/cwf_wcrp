@@ -7,7 +7,8 @@ CREATE FUNCTION postgisftw.wcrp_barrier_extent(watershed_group_code TEXT, barrie
     watershed_group_cd TEXT,
     structure_type TEXT,
     all_habitat_blocked_km numeric,
-    all_habitat_blocked_pct numeric
+    total_habitat_km numeric,
+    extent_pct numeric
   )
 
   LANGUAGE 'plpgsql'
@@ -57,10 +58,10 @@ IF (v_feat = 'ALL')
       percent AS (
         SELECT
             *,
-            ROUND(n.all_spawningrearing_blocked_km*100 / nsum,2) as pct_test
+            ROUND(n.all_spawningrearing_blocked_km*100 / (SELECT all_habitat FROM postgisftw.wcrp_watershed_connectivity_status(v_wsg)) ,2) as extent_pct
             FROM barriers n
             INNER JOIN (
-            SELECT b.watershed_group_code, SUM(b.all_spawningrearing_km) as nsum
+            SELECT b.watershed_group_code
             FROM barriers b
             WHERE b.all_spawningrearing_blocked_km != 0
             group by b.watershed_group_code
@@ -73,7 +74,8 @@ IF (v_feat = 'ALL')
         p.watershed_group_code,
         p.crossing_feature_type,
         p.all_spawningrearing_blocked_km,
-        p.pct_test
+        (SELECT all_habitat FROM postgisftw.wcrp_watershed_connectivity_status('QUES')) as total_habitat_km,
+        p.extent_pct
     FROM percent p;
 
 ELSE
@@ -113,10 +115,10 @@ ELSE
       percent AS (
         SELECT
             *,
-            ROUND(n.all_spawningrearing_blocked_km*100 / nsum,2) as pct_test
+            ROUND(n.all_spawningrearing_blocked_km*100 / (SELECT all_habitat FROM postgisftw.wcrp_watershed_connectivity_status(v_wsg)),2) as extent_pct
             FROM barriers n
             INNER JOIN (
-            SELECT b.watershed_group_code, SUM(b.all_spawningrearing_km) as nsum
+            SELECT b.watershed_group_code
             FROM barriers b
             WHERE b.all_spawningrearing_blocked_km != 0
             group by b.watershed_group_code
@@ -129,7 +131,8 @@ ELSE
         p.watershed_group_code,
         p.crossing_feature_type,
         p.all_spawningrearing_blocked_km,
-        p.pct_test
+        (SELECT all_habitat FROM postgisftw.wcrp_watershed_connectivity_status('QUES')) as total_habitat_km,
+        p.extent_pct
     FROM percent p;
 
 END IF;
