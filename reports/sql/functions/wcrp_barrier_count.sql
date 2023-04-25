@@ -76,7 +76,7 @@ IF (v_feat = 'ALL' AND v_str = 'HABITAT')
             (d.passable + d.barrier + d.potential + d.unknown) as total
         FROM divided d;
 
-ELSE IF (v_feat = 'ALL' AND v_str = 'ACCESSIBLE') 
+ELSIF (v_feat = 'ALL' AND v_str = 'ACCESSIBLE') 
 
     then RETURN query
 
@@ -126,7 +126,7 @@ ELSE IF (v_feat = 'ALL' AND v_str = 'ACCESSIBLE')
             (d.passable + d.barrier + d.potential + d.unknown) as total
         FROM divided d;
 
-ELSE IF (v_feat = 'ALL' AND v_str = 'TOTAL') 
+ELSIF (v_feat = 'ALL' AND v_str = 'TOTAL') 
 
     then RETURN query
 
