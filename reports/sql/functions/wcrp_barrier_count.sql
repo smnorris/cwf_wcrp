@@ -1,4 +1,4 @@
-DROP FUNCTION postgisftw.wcrp_barrier_count();
+DROP FUNCTION postgisftw.wcrp_barrier_count;
 
 CREATE FUNCTION postgisftw.wcrp_barrier_count(watershed_group_code TEXT, barrier_type TEXT default 'ALL', stream_type TEXT default 'ON')
 --watershed_group: one of BULK, ELKR, HORS, LNIC, QUES, BOWR, CARR
