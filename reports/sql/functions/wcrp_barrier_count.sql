@@ -25,7 +25,7 @@ DECLARE
 
 BEGIN
 
-IF (v_feat = 'ALL' AND v_str = 'HABITAT') 
+IF v_feat = ('ALL' AND v_str = 'HABITAT')
 
     then RETURN query
 
@@ -126,7 +126,7 @@ ELSIF (v_feat = 'ALL' AND v_str = 'ACCESSIBLE')
             (d.passable + d.barrier + d.potential + d.unknown) as total
         FROM divided d;
 
-ELSIF (v_feat = 'ALL' AND v_str = 'TOTAL') 
+ELSIF (v_feat = 'ALL' AND v_str = 'ON') 
 
     then RETURN query
 
