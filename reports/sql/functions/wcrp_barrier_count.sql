@@ -25,7 +25,7 @@ DECLARE
 
 BEGIN
 
-IF v_feat = ('ALL' AND v_str = 'HABITAT')
+IF (v_feat = 'ALL' AND v_str = 'HABITAT')
 
     then RETURN query
 
