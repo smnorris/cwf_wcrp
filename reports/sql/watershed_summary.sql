@@ -53,13 +53,13 @@ SELECT
            model_rearing_co IS TRUE
         ) +
         -- add .5 coho rearing in wetlands
-        SUM(ST_Length(geom) * .5) FILTER (
+       coalesce(SUM(ST_Length(geom) * .5) FILTER (
           WHERE model_rearing_co IS TRUE AND edge_type = 1050
-        ) +
+        ), 0) +
         -- add .5 sockeye rearing in lakes (all of it)
-        SUM(ST_Length(geom) * .5) FILTER (
+       coalesce(SUM(ST_Length(geom) * .5) FILTER (
           WHERE model_spawning_sk IS TRUE
-        )
+        ), 0)
       ) / 1000
     )::numeric, 2
     ) AS rearing_km,
@@ -76,18 +76,18 @@ SELECT
             (model_rearing_sk IS TRUE AND barriers_anthropogenic_dnstr is null)
         ) +
         -- add .5 coho rearing in wetlands
-        SUM(ST_Length(geom) * .5) FILTER (
+        coalesce(SUM(ST_Length(geom) * .5) FILTER (
           WHERE
             model_rearing_co IS TRUE AND
             edge_type = 1050 AND
             barriers_anthropogenic_dnstr is null
-        ) +
+        ), 0) +
         -- add .5 sockeye rearing in lakes (all of it)
-        SUM(ST_Length(geom) * .5) FILTER (
+        coalesce(SUM(ST_Length(geom) * .5) FILTER (
           WHERE
             model_spawning_sk IS TRUE AND
             barriers_anthropogenic_dnstr is null
-        )
+        ), 0)
       ) / 1000
     )::numeric, 2
   ) AS rearing_accessible_km

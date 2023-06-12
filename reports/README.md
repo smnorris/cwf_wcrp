@@ -33,7 +33,7 @@ To ensure functions are working as expected, test directly:
     psql $DATABASE_URL -c "select postgisftw.wcrp_watershed_connectivity_status('HORS')"
 
 
-Grant the pgfs user/role access to the functions:
+Grant the pgfs user/role (and any others required) access to the functions:
 
     psql $DATABASE_URL -c "GRANT EXECUTE ON FUNCTION postgisftw.wcrp_barrier_count TO pgfs"
     psql $DATABASE_URL -c "GRANT EXECUTE ON FUNCTION postgisftw.wcrp_barrier_extent TO pgfs"
